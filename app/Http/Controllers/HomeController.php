@@ -14,7 +14,7 @@ class HomeController extends Controller
     public function encodeImageAjax(Request $request)
     {
         $request->validate([
-            'picture'=>'required'
+            'picture'=>'required|image|max:1000'
         ]);
 
         $picture = $request->file('picture');
