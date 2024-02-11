@@ -24,11 +24,20 @@
                         </div>
                     </template>
 
+                    <template id="errorItemTemplate">
+                        <div class="errorItem d-flex justify-content-between m-1 p-2 bg-danger text-dark bg-opacity-25 border border-secondary rounded">
+                            <span class="fileName fw-bold w-25"></span>
+                            <span class="fileSize"></span>
+                            <span class="status"></span>
+                            <span class="message"></span>
+                        </div>
+                    </template>
+
                     <div class="mb-4">
                         <h2>Convert your images to base64</h2>
                         <form class="d-flex" action="{{route('encodeImageAjax')}}" method="post" enctype="multipart/form-data">
                             @csrf
-                            <input onchange="sendAjaxRequests(event)" id="pictures" type="file" name="pictures" required multiple accept="image/*" class="form-control me-1">
+                            <input onchange="sendAjaxRequests()" id="pictures" type="file" name="pictures" required multiple accept="image/*" class="form-control">
                         </form>
                     </div>
 
@@ -48,7 +57,7 @@
 
         let picturesArray = [];
 
-        function sendAjaxRequests(event)
+        function sendAjaxRequests()
         {
             let picturesArray = document.getElementById('pictures').files;
 
@@ -59,7 +68,10 @@
                 formData.append("picture", picturesArray[i]);
                 fetch("{{route('encodeImageAjax')}}",{
                     method: "POST",
-                    body: formData
+                    body: formData,
+                    headers: {
+                        "Accept": "application/json",
+                    },
                 }).then(ImageEncodingCallback);
             }
         }
@@ -67,31 +79,40 @@
         async function ImageEncodingCallback(response)
         {
             let res = await response.json();
-            let length = picturesArray.push(res);
-
             const container = document.getElementById('resultsContainer');
-            const template = document.getElementById('resultItemTemplate');
+
+            let template = null;
+            if (res['errors']) //error
+                template = document.getElementById('errorItemTemplate');
+
+            else //success
+                template = document.getElementById('resultItemTemplate');
 
             const clone = template.content.cloneNode(true);
 
             clone.querySelector('.fileName').textContent = res.fileName;
-            clone.querySelector('.fileSize').textContent = '12 kb';
-            clone.querySelector('.status').textContent = 'success';
-            clone.querySelector('.convertedFileSize').textContent = '15 kb';
-            clone.querySelector('.copyToClipBtn').onclick = async function() { await copyToClipboard(length - 1); };
+            clone.querySelector('.fileSize').textContent = res.fileSizeBytes / 1000 + ' KB';
 
-            console.log(clone.querySelector('.copyToClipBtn').onClick);
+            if (res['errors'])
+            {
+                clone.querySelector('.status').textContent = 'Error';
+                clone.querySelector('.message').textContent = res.errors.picture[0];
+            }
+            else
+            {
+                let length = picturesArray.push(res);
+                clone.querySelector('.status').textContent = 'Success';
+                clone.querySelector('.convertedFileSize').textContent = res.encodedFileSizeBytes / 1000 + ' KB';
+                clone.querySelector('.copyToClipBtn').onclick = async function() { await copyToClipboard(length - 1); };
+            }
 
             container.appendChild(clone);
 
-            console.log(picturesArray);
-
+            //console.log(picturesArray);
         }
 
         async function copyToClipboard(id)
         {
-            //alert(id);
-            
             await navigator.clipboard.writeText(picturesArray[id].base64);
         }
 

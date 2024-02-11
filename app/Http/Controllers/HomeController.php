@@ -19,7 +19,12 @@ class HomeController extends Controller
 
         $picture = $request->file('picture');
 
-        return response()->json(['fileName'=>$picture->getClientOriginalName(), 'base64'=> base64_encode($picture->getContent())]);
+        $base64 = base64_encode($picture->getContent());
+
+        return response()->json(['fileName'=>$picture->getClientOriginalName(),
+            'fileSizeBytes'=>$picture->getSize(),
+            'base64'=> $base64,
+            'encodedFileSizeBytes' => strlen($base64)]);
 
     }
 }
