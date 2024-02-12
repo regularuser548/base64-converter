@@ -33,11 +33,17 @@
                         </div>
                     </template>
 
+
                     <div class="mb-4">
                         <h2>Convert your images to base64</h2>
-                        <form class="d-flex" action="{{route('encodeImageAjax')}}" method="post" enctype="multipart/form-data">
+
+                        <div id="messageContainer">
+
+                        </div>
+
+                        <form class="d-flex">
                             @csrf
-                            <input onchange="sendAjaxRequests()" id="pictures" type="file" name="pictures" required multiple accept="image/*" class="form-control">
+                            <input onchange="sendAjaxRequests()" id="pictures" name="pictures" type="file" required multiple accept="image/*" class="form-control">
                         </form>
                     </div>
 
@@ -61,11 +67,19 @@
         {
             let picturesArray = document.getElementById('pictures').files;
 
-            //do some validation
+            let csrf = document.getElementsByName('_token')[0].value;
+
+            if (picturesArray.length > 10)
+            {
+                setMessage('You can upload up to 10 files at once');
+                return;
+            }
+
             for (let i = 0; i < picturesArray.length; i++)
             {
                 const formData = new FormData();
                 formData.append("picture", picturesArray[i]);
+                formData.append('_token', csrf);
                 fetch("{{route('encodeImageAjax')}}",{
                     method: "POST",
                     body: formData,
@@ -114,6 +128,21 @@
         async function copyToClipboard(id)
         {
             await navigator.clipboard.writeText(picturesArray[id].base64);
+        }
+
+        function setMessage(text)
+        {
+            const container = document.getElementById('messageContainer');
+            let toDelete = container.getElementsByClassName('alert');
+
+            if (toDelete.length > 0)
+                toDelete[0].remove();
+
+            const messageText = text;
+            const message = document.createElement('div');
+            message.className = 'alert alert-danger alert-dismissible fade show';
+            message.innerHTML = `${messageText}<button type="button" class="btn-close" data-bs-dismiss="alert"></button>`;
+            container.appendChild(message);
         }
 
     </script>

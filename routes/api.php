@@ -16,4 +16,4 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::post('/', [App\Http\Controllers\HomeController::class, 'encodeImageAjax'])->name('encodeImageAjax');
+
