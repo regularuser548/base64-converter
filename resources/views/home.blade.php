@@ -16,20 +16,20 @@
 
                     <template id="resultItemTemplate">
                         <div class="resultItem d-flex justify-content-between m-1 p-2 bg-success text-dark bg-opacity-25 border border-secondary rounded">
-                            <span class="fileName fw-bold w-25"></span>
-                            <span class="fileSize"></span>
-                            <span class="status"></span>
-                            <span class="convertedFileSize"></span>
+                            <span class="fileName fw-bold w-25 ms-2 me-2 text-break"></span>
+                            <span class="fileSize ms-2 me-2"></span>
+                            <span class="status ms-2 me-2"></span>
+                            <span class="convertedFileSize ms-2 me-2"></span>
                             <button class="copyToClipBtn btn btn-secondary btn-sm">Copy</button>
                         </div>
                     </template>
 
                     <template id="errorItemTemplate">
                         <div class="errorItem d-flex justify-content-between m-1 p-2 bg-danger text-dark bg-opacity-25 border border-secondary rounded">
-                            <span class="fileName fw-bold w-25"></span>
-                            <span class="fileSize"></span>
-                            <span class="status"></span>
-                            <span class="message"></span>
+                            <span class="fileName fw-bold w-25 ms-2 me-2 text-break"></span>
+                            <span class="fileSize ms-2 me-2"></span>
+                            <span class="status ms-2 me-2"></span>
+                            <span class="message text-wrap"></span>
                         </div>
                     </template>
 
@@ -52,7 +52,7 @@
 
             <div class="row">
                 <div class="col">
-                    <div class="ps-5 pe-5" id="resultsContainer">
+                    <div id="resultsContainer">
 
                     </div>
                 </div>
@@ -86,16 +86,21 @@
                     headers: {
                         "Accept": "application/json",
                     },
-                }).then(ImageEncodingCallback);
+                }).then(imageEncodingCallback, errorCallback);
             }
         }
 
-        async function ImageEncodingCallback(response)
+        function errorCallback()
+        {
+            setMessage("Server is not responding");
+        }
+
+        async function imageEncodingCallback(response)
         {
             let res = await response.json();
             const container = document.getElementById('resultsContainer');
 
-            let template = null;
+            let template;
             if (res['errors']) //error
                 template = document.getElementById('errorItemTemplate');
 

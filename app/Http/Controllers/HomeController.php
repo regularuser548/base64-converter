@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class HomeController extends Controller
 {
@@ -14,10 +15,20 @@ class HomeController extends Controller
     public function encodeImageAjax(Request $request)
     {
         $request->validate([
-            'picture'=>'required|image|max:1000'
+            'picture' => 'required'
+        ]);
+
+        $validator = Validator::make($request->all(), [
+            'picture' => 'image|max:1000'
         ]);
 
         $picture = $request->file('picture');
+
+        if ($validator->fails()) {
+            return response()->json(['fileName' => $picture->getClientOriginalName(),
+            'fileSizeBytes' => $picture->getSize(), 'errors' => $validator->errors()], 412);
+        }
+
 
         $base64 = base64_encode($picture->getContent());
 
