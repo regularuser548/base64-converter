@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!--suppress HtmlUnknownTarget -->
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         <meta charset="utf-8">
@@ -8,7 +7,7 @@
 
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-
+        @vite(['resources/js/app.js'])
     </head>
     <body>
         <div class="container">
@@ -21,7 +20,11 @@
                             <span class="fileSize ms-2 me-2"></span>
                             <span class="status ms-2 me-2"></span>
                             <span class="convertedFileSize ms-2 me-2"></span>
-                            <button class="copyToClipBtn btn btn-secondary btn-sm">Copy</button>
+                            <div>
+                                <button class="copyToClipBtn btn btn-secondary btn-sm">Copy</button>
+                                <button class="copyToClipImgBtn btn btn-secondary btn-sm">Copy for img</button>
+                                <button class="copyToClipCssBtn btn btn-secondary btn-sm">Copy for css</button>
+                            </div>
                         </div>
                     </template>
 
@@ -43,7 +46,7 @@
 
                         <form class="d-flex">
                             @csrf
-                            <input onchange="sendAjaxRequests()" id="pictures" name="pictures" type="file" required multiple accept="image/*" class="form-control">
+                            <input id="pictures" name="pictures" type="file" required multiple accept="image/*" class="form-control">
                         </form>
                     </div>
 
@@ -59,6 +62,5 @@
             </div>
 
         </div>
-    <script src="../../js/app.js"></script>
     </body>
 </html>

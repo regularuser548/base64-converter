@@ -1,7 +1,10 @@
 let picturesArray = [];
 
+
+document.getElementById('pictures').onchange = sendAjaxRequests;
 function sendAjaxRequests()
 {
+
     let picturesArray = document.getElementById('pictures').files;
 
     let csrf = document.getElementsByName('_token')[0].value;
@@ -59,7 +62,9 @@ async function imageEncodingCallback(response)
         let length = picturesArray.push(res);
         clone.querySelector('.status').textContent = 'Success';
         clone.querySelector('.convertedFileSize').textContent = res.encodedFileSizeBytes / 1000 + ' KB';
-        clone.querySelector('.copyToClipBtn').onclick = async function() { await copyToClipboard(length - 1); };
+        clone.querySelector('.copyToClipBtn').onclick = async function() { await copyToClipboard(length - 1, '',''); };
+        clone.querySelector('.copyToClipImgBtn').onclick = async function() { await copyToClipboard(length - 1, 'data:image/png;base64,',''); };
+        clone.querySelector('.copyToClipCssBtn').onclick = async function() { await copyToClipboard(length - 1,'url(\'data:image/png;base64,','\')'); };
     }
 
     container.appendChild(clone);
@@ -67,9 +72,9 @@ async function imageEncodingCallback(response)
     //console.log(picturesArray);
 }
 
-async function copyToClipboard(id)
+async function copyToClipboard(id, prefix, postfix)
 {
-    await navigator.clipboard.writeText(picturesArray[id].base64);
+    await navigator.clipboard.writeText(prefix + picturesArray[id].base64 + postfix);
 }
 
 function setMessage(text)
