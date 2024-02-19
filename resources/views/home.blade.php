@@ -9,8 +9,9 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
         @vite(['resources/js/app.js', 'resources/css/app.css'])
     </head>
-    <body>
+    <body class="d-flex flex-column min-vh-100">
 
+    <!--result item templates-->
     <template id="resultItemTemplate">
         <div class="resultItem d-flex justify-content-between m-1 p-2 bg-success text-dark bg-opacity-25 border border-secondary rounded">
             <span class="fileName fw-bold w-25 ms-2 me-2 text-break"></span>
@@ -18,9 +19,9 @@
             <span class="status ms-2 me-2"></span>
             <span class="convertedFileSize ms-2 me-2"></span>
             <div>
-                <button class="copyToClipBtn btn btn-secondary btn-sm">Copy</button>
-                <button class="copyToClipImgBtn btn btn-secondary btn-sm">Copy for img</button>
-                <button class="copyToClipCssBtn btn btn-secondary btn-sm">Copy for css</button>
+                <button class="copyToClipBtn btn btn-light btn-sm">Copy</button>
+                <button class="copyToClipImgBtn btn btn-light btn-sm">Copy for img</button>
+                <button class="copyToClipCssBtn btn btn-light btn-sm">Copy for css</button>
             </div>
         </div>
     </template>
@@ -31,19 +32,22 @@
             <span class="fileSize ms-2 me-2"></span>
             <span class="status ms-2 me-2"></span>
             <span class="message text-wrap"></span>
+            <div></div>
         </div>
     </template>
 
+    <!--header-->
     <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
         <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none ms-5">
             <span class="fs-4">Base 64 Converter</span>
         </a>
 
-        <ul class="nav nav-pills me-5">
+        <!-- <ul class="nav nav-pills me-5">
             <li class="nav-item"><a href="#" class="nav-link active" aria-current="page">Home</a></li>
             <li class="nav-item"><a href="#" class="nav-link">FAQs</a></li>
             <li class="nav-item"><a href="#" class="nav-link">About</a></li>
         </ul>
+        -->
     </header>
 
         <div class="container">
@@ -53,10 +57,12 @@
                     <div class="mb-4">
                         <h2>Convert your images to base64</h2>
 
+                        <!--container for messages-->
                         <div id="messageContainer">
 
                         </div>
 
+                        <!--form-->
                         <form class="d-flex">
                             @csrf
                             <input id="pictures" name="pictures" type="file" required multiple accept="image/*" class="form-control form-control-lg">
@@ -65,18 +71,26 @@
 
                 </div>
             </div>
-
+            <!--results container-->
             <div class="row">
                 <div class="col">
                     <div id="resultsContainer" class="rounded p-2 d-none">
-
+                        <!--results table-->
+                        <div class="d-flex rounded m-1 p-2 justify-content-between" id="resultsTable">
+                            <span class="fw-bold w-25 ms-2 me-2">Filename</span>
+                            <span class="fw-bold ms-2 me-2">Size</span>
+                            <span class="fw-bold ms-2 me-2">Status</span>
+                            <span class="fw-bold ms-2 me-2">Converted</span>
+                            <div style="width: 13.5rem;"></div>
+                        </div>
                     </div>
                 </div>
             </div>
 
+            <!--file formats div-->
             <div class="row">
                 <div class="col d-flex justify-content-center">
-                    <div id="fileFormatsInfo" class="rounded p-3 mt-4 d-inline-block">
+                    <div id="fileFormatsInfo" class="rounded p-3 mt-4 mb-4 d-inline-block">
                         <h3>File Formats</h3>
                         <span>You can upload up to 10 images (max. 1.00 MB each) as JPG, PNG, GIF, WebP, SVG or BMP.</span>
                     </div>
@@ -84,10 +98,10 @@
             </div>
 
         </div>
-
-    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
-        <div class="col-md-4 d-flex align-items-center ms-5">
-            <span class="mb-3 mb-md-0 text-body-secondary">© 2023 Company, Inc</span>
+    <!--footer-->
+    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 border-top mt-auto">
+        <div class="col-md-4 d-flex align-items-center ms-5 my-2">
+            <span class="mb-3 mb-md-0 text-body-secondary">© 2024 Company, Inc</span>
         </div>
     </footer>
     </body>

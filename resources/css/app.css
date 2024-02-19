@@ -16,5 +16,9 @@ header {
 
 footer {
     background-color: white;
-    margin-top: 200px !important;
+
+}
+
+#resultsTable {
+    background-color: #F0F0F0;
 }
