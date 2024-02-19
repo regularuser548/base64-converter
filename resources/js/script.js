@@ -28,6 +28,8 @@ function sendAjaxRequests()
             },
         }).then(imageEncodingCallback, errorCallback);
     }
+
+    document.getElementById('resultsContainer').classList.remove('d-none');
 }
 
 function errorCallback()
@@ -69,7 +71,6 @@ async function imageEncodingCallback(response)
 
     container.appendChild(clone);
 
-    //console.log(picturesArray);
 }
 
 async function copyToClipboard(id, prefix, postfix)

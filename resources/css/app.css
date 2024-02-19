@@ -1,0 +1,20 @@
+body {
+    background-color: #E6E6E6;
+}
+
+#resultsContainer {
+    background-color: white;
+}
+
+#fileFormatsInfo {
+    background-color: white;
+}
+
+header {
+    background-color: white;
+}
+
+footer {
+    background-color: white;
+    margin-top: 200px !important;
+}
