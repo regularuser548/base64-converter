@@ -64,18 +64,38 @@ async function imageEncodingCallback(response)
         let length = picturesArray.push(res);
         clone.querySelector('.status').textContent = 'Success';
         clone.querySelector('.convertedFileSize').textContent = res.encodedFileSizeBytes / 1000 + ' KB';
-        clone.querySelector('.copyToClipBtn').onclick = async function() { await copyToClipboard(length - 1, '',''); };
-        clone.querySelector('.copyToClipImgBtn').onclick = async function() { await copyToClipboard(length - 1, 'data:image/png;base64,',''); };
-        clone.querySelector('.copyToClipCssBtn').onclick = async function() { await copyToClipboard(length - 1,'url(\'data:image/png;base64,','\')'); };
+
+        clone.querySelector('.copyToClipBtn').dataset.picId = (length - 1).toString();
+        clone.querySelector('.copyToClipBtn').onclick = copyToClipboard;
+
+        clone.querySelector('.copyToClipImgBtn').dataset.picId = (length - 1).toString();
+        clone.querySelector('.copyToClipImgBtn').onclick = copyToClipboard;
+
+        clone.querySelector('.copyToClipCssBtn').dataset.picId = (length - 1).toString();
+        clone.querySelector('.copyToClipCssBtn').onclick = copyToClipboard;
     }
 
     container.appendChild(clone);
 
 }
 
-async function copyToClipboard(id, prefix, postfix)
+async function copyToClipboard(event)
 {
-    await navigator.clipboard.writeText(prefix + picturesArray[id].base64 + postfix);
+    let id = +event.target.dataset.picId;
+    let className = event.target.classList[0];
+    let pic = picturesArray[id];
+    let res;
+
+    if (className === "copyToClipImgBtn")
+        res = `data:${pic.fileMimeType};base64,${pic.base64}`;
+
+    else if (className === "copyToClipCssBtn")
+        res = `url("data:${pic.fileMimeType};base64,${pic.base64}")`;
+
+    else
+        res = pic.base64;
+
+    await navigator.clipboard.writeText(res);
 }
 
 function setMessage(text)

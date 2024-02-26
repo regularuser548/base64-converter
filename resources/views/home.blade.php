@@ -19,9 +19,9 @@
             <span class="status ms-2 me-2"></span>
             <span class="convertedFileSize ms-2 me-2"></span>
             <div>
-                <button class="copyToClipBtn btn btn-light btn-sm">Copy</button>
-                <button class="copyToClipImgBtn btn btn-light btn-sm">Copy for img</button>
-                <button class="copyToClipCssBtn btn btn-light btn-sm">Copy for css</button>
+                <button class="copyToClipBtn btn btn-light btn-sm" data-picId="">Copy</button>
+                <button class="copyToClipImgBtn btn btn-light btn-sm" data-picId="">Copy for img</button>
+                <button class="copyToClipCssBtn btn btn-light btn-sm" data-picId="">Copy for css</button>
             </div>
         </div>
     </template>
@@ -39,7 +39,7 @@
     <!--header-->
     <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
         <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none ms-5">
-            <span class="fs-4">Base 64 Converter</span>
+            <span class="fs-4">Base64 Converter</span>
         </a>
 
         <!-- <ul class="nav nav-pills me-5">

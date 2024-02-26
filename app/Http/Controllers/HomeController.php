@@ -33,6 +33,7 @@ class HomeController extends Controller
         $base64 = base64_encode($picture->getContent());
 
         return response()->json(['fileName'=>$picture->getClientOriginalName(),
+            'fileMimeType' => $picture->getMimeType(),
             'fileSizeBytes'=>$picture->getSize(),
             'base64'=> $base64,
             'encodedFileSizeBytes' => strlen($base64)]);
