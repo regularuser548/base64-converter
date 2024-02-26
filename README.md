@@ -3,7 +3,8 @@
 Installation instructions:
 
 - Clone this repo
-- Open it and exec commands:
+- Rename `.env.example` to `.env` and set your params
+- Execute commands:
 - `php composer install`
 - `npm install`
 - `php artisan serve`
