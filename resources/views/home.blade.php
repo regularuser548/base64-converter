@@ -11,6 +11,7 @@
     </head>
     <body class="d-flex flex-column min-vh-100">
 
+
     <!--result item templates-->
     <template id="resultItemTemplate">
         <div class="resultItem d-flex justify-content-between m-1 p-2 bg-success text-dark bg-opacity-25 border border-secondary rounded">
@@ -42,9 +43,13 @@
             <span class="fs-4">Base64 Converter</span>
         </a>
 
+        <div class="me-5">
+           <button id="encodeBtn" class="btn btn-primary">Encode</button>
+           <button id="decodeBtn" class="btn btn-secondary">Decode</button>
+        </div>
     </header>
 
-        <div class="container">
+        <div id="encoderContainer" class="container">
             <div class="row">
                 <div class="col d-flex justify-content-center flex-wrap">
 
@@ -92,11 +97,26 @@
             </div>
 
         </div>
+
+        <div id="decoderContainer" class="container d-none">
+            <div class="row">
+                <div class="col-6">
+                    <button id="clearBtn" class="btn btn-secondary btn-sm mb-1">Clear</button>
+                    <label for="decoderInput"></label>
+                    <textarea id="decoderInput" class="form-control" rows="15" cols="50" placeholder="Paste your base64 string"></textarea>
+                </div>
+                <div class="col-6 p-4 d-flex justify-content-center align-items-center">
+                    <img id="decoderOutput" class="rounded" src="" alt="Image Preview">
+                </div>
+            </div>
+        </div>
+
     <!--footer-->
     <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 border-top mt-auto">
         <div class="col-md-4 d-flex align-items-center ms-5 my-2">
             <span class="mb-3 mb-md-0 text-body-secondary">© 2024 Company, Inc</span>
         </div>
     </footer>
+
     </body>
 </html>

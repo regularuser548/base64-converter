@@ -2,6 +2,10 @@ let picturesArray = [];
 
 
 document.getElementById('pictures').onchange = sendAjaxRequests;
+document.getElementById('encodeBtn').onclick = changePage;
+document.getElementById('decodeBtn').onclick = changePage;
+document.getElementById('decoderInput').oninput = decodeImage;
+document.getElementById('clearBtn').onclick = clearDecoderInput;
 function sendAjaxRequests()
 {
 
@@ -96,6 +100,38 @@ async function copyToClipboard(event)
         res = pic.base64;
 
     await navigator.clipboard.writeText(res);
+}
+
+function changePage(event)
+{
+    if (event.target.id === 'encodeBtn')
+    {
+        document.getElementById('encoderContainer').classList.remove('d-none');
+        document.getElementById('decoderContainer').classList.add('d-none');
+        document.getElementById('encodeBtn').classList.replace('btn-secondary', 'btn-primary');
+        document.getElementById('decodeBtn').classList.replace('btn-primary', 'btn-secondary');
+    }
+    else if (event.target.id === 'decodeBtn')
+    {
+        document.getElementById('encoderContainer').classList.add('d-none');
+        document.getElementById('decoderContainer').classList.remove('d-none');
+        document.getElementById('decodeBtn').classList.replace('btn-secondary', 'btn-primary');
+        document.getElementById('encodeBtn').classList.replace('btn-primary', 'btn-secondary');
+    }
+
+}
+
+function clearDecoderInput()
+{
+    document.getElementById('decoderInput').value = '';
+    document.getElementById('decoderOutput').src = '';
+}
+
+
+function decodeImage(event)
+{
+    let text = event.target.value;
+    document.getElementById("decoderOutput").src = "data:image/png;base64," + text;
 }
 
 function setMessage(text)
