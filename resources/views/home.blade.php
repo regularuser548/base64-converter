@@ -14,12 +14,12 @@
 
     <!--result item templates-->
     <template id="resultItemTemplate">
-        <div class="resultItem d-flex justify-content-between m-1 p-2 bg-success text-dark bg-opacity-25 border border-secondary rounded">
-            <span class="fileName fw-bold w-25 ms-2 me-2 text-break"></span>
-            <span class="fileSize ms-2 me-2"></span>
-            <span class="status ms-2 me-2"></span>
-            <span class="convertedFileSize ms-2 me-2"></span>
-            <div>
+        <div class="row resultItem m-1 p-2 bg-success text-dark bg-opacity-25 border border-secondary rounded">
+            <span class="col-2 fileName fw-bold w-25 ms-2 me-2 text-break"></span>
+            <span class="col-2 fileSize ms-2 me-2"></span>
+            <span class="col-1 status ms-2 me-2"></span>
+            <span class="col-2 convertedFileSize ms-2 me-2"></span>
+            <div class="col-xl-3 col-lg-2 col-md-2 col-sm-2">
                 <button class="copyToClipBtn btn btn-light btn-sm" data-picId="">Copy</button>
                 <button class="copyToClipImgBtn btn btn-light btn-sm" data-picId="">Copy for img</button>
                 <button class="copyToClipCssBtn btn btn-light btn-sm" data-picId="">Copy for css</button>
@@ -28,12 +28,11 @@
     </template>
 
     <template id="errorItemTemplate">
-        <div class="errorItem d-flex justify-content-between m-1 p-2 bg-danger text-dark bg-opacity-25 border border-secondary rounded">
-            <span class="fileName fw-bold w-25 ms-2 me-2 text-break"></span>
-            <span class="fileSize ms-2 me-2"></span>
-            <span class="status ms-2 me-2"></span>
-            <span class="message text-wrap"></span>
-            <div></div>
+        <div class="row errorItem m-1 p-2 bg-danger text-dark bg-opacity-25 border border-secondary rounded">
+            <span class="col-2 fileName fw-bold w-25 ms-2 me-2 text-break"></span>
+            <span class="col-2 fileSize ms-2 me-2"></span>
+            <span class="col-1 status ms-2 me-2"></span>
+            <span class="col-xl-5 col-lg-4 col-md-4 col-sm-3 message text-wrap"></span>
         </div>
     </template>
 
@@ -75,12 +74,11 @@
                 <div class="col">
                     <div id="resultsContainer" class="rounded p-2 d-none">
                         <!--results table-->
-                        <div class="d-flex rounded m-1 p-2 justify-content-between" id="resultsTable">
-                            <span class="fw-bold w-25 ms-2 me-2">Filename</span>
-                            <span class="fw-bold ms-2 me-2">Size</span>
-                            <span class="fw-bold ms-2 me-2">Status</span>
-                            <span class="fw-bold ms-2 me-2">Converted</span>
-                            <div style="width: 13.5rem;"></div>
+                        <div class="row rounded m-1 p-2" id="resultsTable">
+                            <span class="col-2 fw-bold w-25 ms-2 me-2">Filename</span>
+                            <span class="col-2 fw-bold ms-2 me-2">Size</span>
+                            <span class="col-1 fw-bold ms-2 me-2">Status</span>
+                            <span class="col-2 fw-bold ms-2 me-2">Converted</span>
                         </div>
                     </div>
                 </div>
